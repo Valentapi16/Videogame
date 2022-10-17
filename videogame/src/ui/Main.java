@@ -37,22 +37,23 @@ public class Main{
 	
 	public int getOptionShowMenu(){
 		int option = 0; 
-		System.out.println("<<<<< HI WELCOME TO THE GAME >>>>>");
+		System.out.println("<<<<< HI, WELCOME TO THE GAME >>>>>");
 		System.out.println(
-				"1. Crear jugador\n" +
-				"2. Registrar enemigo a un nivel \n"+
-				"3. Registrar tesoro a un nivel \n"+
-				"4. Modificar el puntaje de un jugador \n" +
-				"5. Incremento de nivel \n" +
-				"6. Cantidad de tesoros y enemigos en un nivel \n" +
-				"7. Cantidad de tesoros en todos los niveles \n" +
-				"8. Cantidad de un tipo de enemigo en todos los niveles \n" +
-				"9. Tesoro más repetido \n" +
-				"10.Enemigo que otorga mayor puntaje y su ubicacion \n" +
-				"11.Cantidad de consonantes en el nombre del enemigo \n" +
-				"12.Top 5 de jugadores \n" +
-				"13. Registrar nivel.");
-		option = reader.nextInt(); 
+				"1. Create player \n" +
+				"2. Register enemy to one level \n"+
+				"3. Register treasure to one level \n"+
+				"4. Register level \n"+
+				"5. Modified score player \n" +
+				"6. Upgrade level \n" +
+				"7. Number of treasures and enemies in a level \n" +
+				"8. Number of treasures at all levels \n" +
+				"9. Number of one type of enemy at all levels \n" +
+				"10.Most repeated treasure \n" +
+				"11.Highest-scoring enemy and its location  \n" +
+				"12.Number of consonants in the enemy's name \n" +
+				"13.Top 5 players \n " +
+				"0.Exit. \n");
+		option = validateIntegerOption(); 
 
 		return option; 
 	}
@@ -148,7 +149,7 @@ public class Main{
 				break; 
 		}
 	}
-	
+
 	public int validateIntegerOption(){
 		int option = 0; 
 

@@ -7,9 +7,9 @@ import model.Enemy;
 
 public class Game {
 
-    public static final int ALL_PLAYERS= 20;
-    public static final int ALL_ENEMIES= 25;
-    public static final int ALL_LEVELS= 10;
+    public static final int ALL_PLAYERS = 20;
+    public static final int ALL_ENEMIES = 25;
+    public static final int ALL_LEVELS = 10;
     public static final int ALL_TREASURES = 50;
 
     private Player[] players;
@@ -21,21 +21,19 @@ public class Game {
     private Enemy enemy;
     private Treasure treasure;
 
+    private int resolutionX;
+    private int resolutionY;
+
     public Game(){
+        resolutionX = 1280;
+        resolutionY = 720;
         levels = new Level[ALL_LEVELS];
-        levels[0]= new Level("1", 0, 0, 0);
-        levels[1]= new Level("2", 0, 0, 0);
-        levels[2]= new Level("3", 0, 0, 0);
-        levels[3]= new Level("4", 0, 0, 0);
-        levels[4]= new Level("5", 0, 0, 0);
-        levels[5]= new Level("6", 0, 0, 0);
-        levels[6]= new Level("7", 0, 0, 0);
-        levels[7]= new Level("8", 0, 0, 0);
-        levels[8]= new Level("9",0 , 0, 0);
-        levels[9]= new Level("10", 0, 0, 0);
         players = new Player[ALL_PLAYERS];
         enemies = new Enemy[ALL_ENEMIES];
         treasures = new Treasure[ALL_TREASURES];
+        for(int i = 0; i < ALL_LEVELS; i++){
+            levels[i] = new Level(i + 1, (i + 1)*20);
+        }
     }
 
     public Player getPlayer(){
@@ -66,84 +64,119 @@ public class Game {
         }
         return msj;
     }
+    public String thereIsASpaceForPlayer(){
+        String msj ="Posicion disponible";
+        if(players[0] == null){
+            msj = "No hay jugadores ";
+        }else if(players[ALL_PLAYERS-1] != null){
+            msj = "Limite de jugadores alcanzado";
+        }
+        return msj;
+    } 
 
-    public int searchLevel(String levelId){
-        int pos = -1;
-        boolean isFound = false;
-        for(int j = 0; j< ALL_LEVELS && !isFound; j++){
-            if(levels[j].getLevelId().equalsIgnoreCase(levelId)){
-                pos = j;
-                isFound = true;
+    public Player searchPlayer(String nickName){
+        Player player = null;
+        for(int i = 0; i < ALL_PLAYERS; i++){
+            if(players[i] != null && players[i].getNicknamePlayer().equalsIgnoreCase(nickName)){
+               player = players[i];
+            }            
+        }
+        return player;
+    }
+
+    public Enemy searchEnemy(String nameEnemy){
+        Enemy enemy = null;
+        for(int i = 0; i < ALL_ENEMIES; i++){
+            if(enemies[i] != null && enemies[i].getName().equalsIgnoreCase(nameEnemy)){
+               enemy = enemies[i];
+            }            
+        }
+        return enemy;
+    }
+
+    public String addEnemy(String nameEnemy, int scorePlus, int scoreLess, int type, int level){
+        String msj = "Se creo un enemigo";
+        boolean isEmpty = false;
+        for(int i = 0; i < ALL_ENEMIES && !isEmpty; i++){
+            if(enemies[i] == null){
+                enemies[i] =  new Enemy(nameEnemy, i, i, msj, null, level, i);
+                isEmpty = true;
             }
         }
-        return pos;
+        return msj;
     }
 
-    public String allocateTreasureToLevel(String nameTreasure,String levelId, int scoreRequired, String linkImage, int amountPerLevel){
-        String msj = "Unable to complete the action ";
-        Treasure newTreasure = new Treasure(nameTreasure, nameTreasure, amountPerLevel, scoreRequired, amountPerLevel);
-        int posLevel = searchLevel(levelId);
-        if(posLevel != -1){
-            msj = levels[posLevel].addTreasureToTheLevel(newTreasure);
+    public String treasureAvailability(){
+        String msj ="Posicion Disponible";
+        if(treasures[0]==null){
+            msj = "No hay tesoros";
+        }else if(treasures[ALL_TREASURES-1] != null){
+            msj = "Limite de tesoros alcanzado ";
         }
         return msj;
     }
 
-    public String allocateEnemyToLevel(String nameEnemy,String levelId, String typeOfEnemy, int lessPointsPlayer, int morePointsPlayer){
-        String msj ="Unable to complete the action";
-        Enemy newEnemy = new Enemy(nameEnemy, lessPointsPlayer, morePointsPlayer, typeOfEnemy);
-        int posLevel = searchLevel(levelId);
-        if(posLevel != -1){
-            msj = levels[posLevel].addEnemyToTheLevel(newEnemy);
+    public String addTreasure(String nameTreasure, String UrlImage, int  scorePlusTreasure, int level){
+        String msj = "Se creo un tesoro";
+        boolean isEmpty = false;
+        for(int i = 0; i < ALL_TREASURES && !isEmpty; i++){
+            if(treasures[i] == null){
+                treasures[i] =  new Treasure(nameTreasure, nameTreasure, i, i, null, level, i);
+                isEmpty = true;
+            }
         }
         return msj;
     }
 
-    public Player searchPlayerByNickName(String nickName){
-		Player playerFound = null;
-		for(int i=0; i < ALL_PLAYERS && playerFound ==null; i++){
-			if(players[i] !=null && players[i].getNicknamePlayer().equals(nickName)){
-				playerFound = players[i];
-			}
-		}
-		return playerFound;
-	}
 
-    public int playerUbication(String nickNameToFind){
-		int levelIndex = -1;
-		for(int i=0; i< ALL_LEVELS && levelIndex == -1; i++){
-			if(levels[i] != null && levels[i].searchPlayerByNickName(nickNameToFind)!=-1){
-				levelIndex=i;
-			}
-		}
-		return levelIndex;
-
-	}
-
-    public void addChangedPlayerToAnotherLevel(Player toAdd, String levelId){
-        String msj = "Player cannot be added to level";
-        int pos = searchLevel(levelId); 
-        if(pos != -1){
-            msj = levels[pos].addPlayerObject(toAdd);
-        }
-    }
-
-    public String changePlayerToAnotherLevel(String nicknamePlayer,String otherLevel){
-        String msj = "Try again, there must be a mistake";
-        Player toChange = searchPlayerByNickName(nicknamePlayer);
-        int lastLevel = -1;
-        if(toChange != null){
-            lastLevel = playerUbication(nicknamePlayer);
-        }
-        if(lastLevel != -1){
-            levels[lastLevel].removePlayer(nicknamePlayer);
-            addChangedPlayerToAnotherLevel(toChange, otherLevel);
-            msj = "Player level has been changed";
-
+    public String modifiedScorePlayer(int Points, String nickName){
+        String msj = "The score player has been modified";
+        for(int i = 0; i<ALL_PLAYERS; i++){
+            if(players[i] != null && players[i].getNicknamePlayer().equalsIgnoreCase(nickName)){
+                if(players[i].getScore() >= Points){
+                    msj= "Only can assign more score to the actual";
+                }else{
+                    players[i].setInitialScore(Points);
+                }
+            }
         }
         return msj;
     }
-    private boolean modifiedScorePlayer(){
-        
+
+    public String upgradeLevelPlayer(String nickName){
+        String msj = "The upgrade of Score has been succesfull";
+        for(int i = 0; i<ALL_PLAYERS; i++){
+            if(players[i] != null && players[i].getNicknamePlayer().equalsIgnoreCase(nickName)){
+                if(players[i].getScore()< players[i].getLevel().getScoreRequired()){
+                    msj="You dont have the score needed to upgrade level";
+                }else if(players[i].getLevel().getLevelId() == 10){
+                    msj= "Sorry, you have been reached the maximum level";
+                }else{
+                    players[i].setLevel(levels[players[i].getLevel().getLevelId()]);
+                    msj += "You upgrade level: " + players[i].getLevel().getLevelId();
+                }
+            }
+        }
+        return msj;
+    }
+
+    public String theEnemies(int level){
+        String msj = "The enemies: ";
+        for(int i= 0;i<ALL_ENEMIES; i++){
+            if(enemies[i] != null && enemies[i].getLevelEnemy().getLevelId()== level){
+                msj += enemies[i].getName() + ",";
+            }
+        }
+        return msj;
+    }
+
+    public String theTreasures(int Level){
+        String msj = "The treasures: ";
+        for(int i = 0; i<ALL_TREASURES; i ++){
+            if(treasures[i] != null && treasures[i].getTreasureLevel().getLevelId() == Level){
+                msj += treasures[i].getNameTrea() + ",";
+            }
+        }
+        return msj;
     }
 }

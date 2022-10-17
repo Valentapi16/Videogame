@@ -5,25 +5,29 @@ public class Level {
     public static final int SIZE_OF_PLAYERS = 20;
     public static final int SIZE_OF_ENEMIES = 25;
     
-    private String levelId;
+    private int levelId;
     private int scoreRequired;
-    private int treasuresInGame;
-    private int enemiesInGame;
+    private ComplexLevel complexLevel;
 
     public Enemy[] enemies;
     public Player[] players;
 
     public Treasure[] treasures;
 
-    public Level(String alevelId, int ascoreRequired, int atreasuresInGame, int aenemiesInGame){
-        levelId = alevelId;
-        scoreRequired = ascoreRequired;
-        treasuresInGame = atreasuresInGame;
-        enemiesInGame = aenemiesInGame;
+    public Level(int levelId, int scoreRequired){
+        this.levelId = levelId;
+        this.scoreRequired = scoreRequired;
+       
+        
+        
     }
 
-    public String getLevelId(){
+    public int getLevelId(){
         return levelId;
+    }
+
+    public int getScoreRequired(){
+        return scoreRequired;
     }
 
     public String addEnemyToTheLevel(Enemy enemy){
@@ -87,4 +91,16 @@ public class Level {
         }
         return msj;
     }
+
+    
+    //public void complexLevel(){
+
+       // if(scoreRequired>10 && scoreRequired<=45){
+           // complexLevel = "Easy";
+        //}else if(scoreRequired>=46 && scoreRequired<= 70){
+            //complexLevel  = "Medium";
+       // }else if (scoreRequired>= 71 && scoreRequired<=100){
+           // complexLevel="Heavy";
+        //}
+    //}
 }

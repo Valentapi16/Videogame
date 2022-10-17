@@ -1,22 +1,31 @@
 package model;
+import java.util.Random;
 
 public class Enemy {
     public static final int SIZE_OF_ENEMIES = 25;
     private String enemyName;
     private int lessPointsPlayer;
     private int morePointsPlayer;
-    private double randomPixelPosition;
+    private Level level;
     private String typeOfEnemy;
+    private int positionX;
+    private int positionY;
 
-    public Enemy(String aenemyName, int alessPointsPlayer, int amorePointsPlayer, String atypeOfEnemy){
+    public Enemy(String aenemyName, int alessPointsPlayer, int amorePointsPlayer, String atypeOfEnemy, Level level, int posX, int posY){
         enemyName =aenemyName;
         lessPointsPlayer = alessPointsPlayer;
         morePointsPlayer = amorePointsPlayer;
         typeOfEnemy = atypeOfEnemy;
+        Random random = new Random();
+        positionX = random.nextInt(posX);
+        positionY = random.nextInt(posY);
     }
 
     public String getName(){
         return enemyName;
+    }
+    public Level getLevelEnemy(){
+        return level;
     }
 
     public int getLessPointsPlayer(){
@@ -27,9 +36,6 @@ public class Enemy {
         return morePointsPlayer;
     }
 
-    public double getRandomPixelPosition(){
-        return randomPixelPosition;
-    }
 
     public String getTypeOfEnemy(){
         return typeOfEnemy;
