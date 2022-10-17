@@ -11,10 +11,10 @@ public class Treasure {
     private Level level;
 
 
-    public Treasure(String anameTreasure, String alinkTreasure, int apointsPlayer, double apositionInPixels,Level level, int resX, int resY){
-        nameTreasure = anameTreasure;
-        linkTreasure = alinkTreasure;
-        pointsPlayer = apointsPlayer;
+    public Treasure(String nameTreasure, String linkTreasure, int pointsToPlayer, double apositionInPixels,Level level, int resX, int resY){
+        this.nameTreasure = nameTreasure;
+        this.linkTreasure = linkTreasure;
+        this.pointsPlayer = pointsToPlayer;
         this.level = level;
         Random random = new Random();
         positionX = random.nextInt(resX);

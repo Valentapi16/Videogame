@@ -11,11 +11,12 @@ public class Enemy {
     private int positionX;
     private int positionY;
 
-    public Enemy(String aenemyName, int alessPointsPlayer, int amorePointsPlayer, String atypeOfEnemy, Level level, int posX, int posY){
-        enemyName =aenemyName;
-        lessPointsPlayer = alessPointsPlayer;
-        morePointsPlayer = amorePointsPlayer;
-        typeOfEnemy = atypeOfEnemy;
+    public Enemy(String enemyName, int lessPointsPlayer, int morePointsPlayer, String typeOfEnemy, Level level, int posX, int posY){
+        this.enemyName =enemyName;
+        this.lessPointsPlayer = lessPointsPlayer;
+        this.morePointsPlayer = morePointsPlayer;
+        this.typeOfEnemy = typeOfEnemy;
+        this.level= level;
         Random random = new Random();
         positionX = random.nextInt(posX);
         positionY = random.nextInt(posY);

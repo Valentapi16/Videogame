@@ -42,16 +42,15 @@ public class Main{
 				"1. Create player \n" +
 				"2. Register enemy to one level \n"+
 				"3. Register treasure to one level \n"+
-				"4. Register level \n"+
-				"5. Modified score player \n" +
-				"6. Upgrade level \n" +
-				"7. Number of treasures and enemies in a level \n" +
-				"8. Number of treasures at all levels \n" +
-				"9. Number of one type of enemy at all levels \n" +
-				"10.Most repeated treasure \n" +
-				"11.Highest-scoring enemy and its location  \n" +
-				"12.Number of consonants in the enemy's name \n" +
-				"13.Top 5 players \n " +
+				"4. Modified score player \n" +
+				"5. Upgrade level \n" +
+				"6. Number of treasures and enemies in a level \n" +
+				"7. Number of treasures at all levels \n" +
+				"8. Number of one type of enemy at all levels \n" +
+				"9.Most repeated treasure \n" +
+				"10.Highest-scoring enemy and its location  \n" +
+				"11.Number of consonants in the enemy's name \n" +
+				"12.Top 5 players \n " +
 				"0.Exit. \n");
 		option = validateIntegerOption(); 
 
@@ -59,50 +58,76 @@ public class Main{
 	}
 
 	public void executeOption(int option){
-		String nickname, name, msj, nameEnemy, levelId, typeOfEnemy, nameTreasure,linkImage = "";
-		int morePointsPlayer, lessPointsPlayer, scoreRequired, amountPerLevel = 0;
+		String nickname, name, enemyName, levelId, typeOfEnemy, nameTreasure,linkImage, linkTreasure = "";
+		int morePointsPlayer, lessPointsPlayer, scoreRequired, amountPerLevel, pointsToPlayer = 0;
 		switch(option){
 			case 1: 
-			 System.out.println("For the new player we need the nickname \n" + "Remember that the nickname is unique");
-			 nickname= reader.next();
-			 System.out.println("Enter your name");
-			 name= reader.next();	
+			if(game.thereIsASpaceForPlayer().equals("The player limit was filled")){
+				System.out.println(game.thereIsASpaceForPlayer());
+				
+			}else{
+				reader.nextLine();
+				System.out.print("Give me the nickname of the player: ");
+				nickname = reader.nextLine();
+				if(game.lookForPlayer(nickname) != null){
+					
+					System.out.println("This nickname is already taken");
 
-			 msj = game.addPlayer(nickname, name);
-			 System.out.println("\n"+msj); 
-
+				}else{
+					System.out.print("Enter the name of the player: ");
+					name = reader.nextLine();
+					System.out.println(game.createPlayer(nickname, name));
+				}
+			}
 				break; 
 
 			case 2: 
-			System.out.println("Enter the name of the new enemy: ");
-			nameEnemy = reader.next();
-			System.out.println("Enter the number of level you want to allocate the enemy: ");
-			levelId = reader.next();
-			System.out.println("Enter the type of the enemy (Ogre, Abstract, Magic or boss): " );
-			typeOfEnemy= reader.next();
-			System.out.println("Enter the amount of score if the enemy win, the score that will lose the player: ");
-			lessPointsPlayer = reader.nextInt();
-			System.out.println("Enter the amount of score if is beaten, the score that will gain the player:");
-			morePointsPlayer = reader.nextInt();
-			
-			String mssj = game.allocateEnemyToLevel(nameEnemy, levelId, typeOfEnemy, lessPointsPlayer, morePointsPlayer);
-			System.out.println(mssj);
+			if(game.spaceForEnemies().equals("The enemies limit was filled")){
+				System.out.println(game.spaceForEnemies());
+			}else{
+				reader.nextLine();
+				System.out.println("Enter the name of the enemy ");
+				enemyName = reader.next();
+				if(game.lookForEnemy(enemyName) != null){
+					System.out.println("Error, este enemigos ya existe");
+				}else{
+	
+					System.out.print("Enter the number of points that will be awarded if the enemy wins: ");
+					lessPointsPlayer = reader.nextInt();
+					System.out.print("Enter the number of points that will be awarded if the enemy is defeated: ");
+					morePointsPlayer = reader.nextInt();
+					System.out.print("Enter the type of the enemy:Ogre,Abstract,Boss,Magic");
+					typeOfEnemy = reader.next();
+					System.out.print("To which level will this enemy belong: ");
+					int level = reader.nextInt();
+					if(level > 10 || level < 1){
+						System.out.println("Level not available");
+					}else{
+						System.out.println(game.createEnemy(enemyName,morePointsPlayer, lessPointsPlayer,typeOfEnemy,level));
+					}
+
+				}
+			}
 				break; 
 
 			case 3:
-			System.out.println("Enter the name of the new Treasure: ");
-			nameTreasure = reader.next();
-			System.out.println("Enter the number of level you want to allocate the treasure: ");
-			levelId = reader.next();
-			System.out.println("Enter the amount of score required for the treasure: " );
-			scoreRequired= reader.nextInt();
-			System.out.println("Enter the URL of the image according of the treasure you want ");
-			linkImage = reader.next();
-			System.out.println("Enter the amount of treasures you want in this level: ");
-			amountPerLevel= reader.nextInt(); 
-
-			msj = game.allocateTreasureToLevel(nameTreasure, levelId, scoreRequired, linkImage, amountPerLevel);
-			System.out.println(msj);
+			if(game.spaceForTreasures().equals("The treasure limit was filled")){
+				System.out.println(game.spaceForTreasures());
+			}else{
+				reader.next();
+				System.out.println("Enter the name of the Treasure: ");
+				nameTreasure = reader.next();
+				System.out.print("Enter the URl of the image according to the treasure: ");
+				linkTreasure = reader.nextLine();
+				System.out.print("Enter the amount of points that will give to the player if it is found: ");
+				pointsToPlayer = reader.nextInt();
+				System.out.println("To which level will this treasure belong");
+				int level = reader.nextInt();
+				if(level > 10 || level < 1){
+					System.out.println("Nivel no valido");
+				}
+				System.out.print(game.createTreasure(nameTreasure, linkTreasure, pointsToPlayer, level));
+			}
 				
 				break; 
 
