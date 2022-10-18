@@ -5,23 +5,17 @@ public class Player {
     private String nickNamePlayer;
     private String name;
     private int scoreInitial;
-    private int amountOfLifes;
     private Level currentLevel;
-    private String scoreToNextLevel;
-
-    private String[] nickNamePlayers= new String[SIZE_OF_PLAYERS];
+ 
 
     private Player player;
 
 
-    public Player(String nicknamePlayer, String name, Level currentlevel,String ascoreToNextLevel){
+    public Player(String nicknamePlayer, String name, Level currentlevel){
         this.nickNamePlayer = nicknamePlayer;
         this.name = name;
         this.currentLevel = currentlevel;
         scoreInitial = 10;
-        amountOfLifes = 5;
-        scoreToNextLevel = ascoreToNextLevel;
-
     }
 
     public String getName(){
@@ -32,9 +26,6 @@ public class Player {
         return nickNamePlayer;
     }
 
-    public String[] getNicknamePlayers(){
-        return nickNamePlayers;
-    }
     public int getScore(){
         return scoreInitial;
     }
@@ -43,13 +34,8 @@ public class Player {
         nickNamePlayer = anicknameplayer;
     }
 
-    public int setInitialScore(int ascoreInitial){
-        scoreInitial= 10;
-        return scoreInitial;
-    }
-    public int setAmountOfLifes(){
-        amountOfLifes= 5;
-        return amountOfLifes;
+    public void setInitialScore(int scoreInitial){
+        this.scoreInitial= scoreInitial;
     }
     
     public Level getLevel(){
@@ -60,7 +46,4 @@ public class Player {
         this.currentLevel= level;
     }
 
-    public String getScoreToNextLevel(){
-        return scoreToNextLevel;
-    }
 }

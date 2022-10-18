@@ -44,14 +44,6 @@ public class Game {
     public Player[] getAllPlayer(){
         return players;
     }
-
-    public Enemy getEnemy(){
-        return enemy;
-    }
-    
-    public Treasure[] getAllTreasures(){
-        return treasures;
-    }
     /**
 	* createPlayer: Method that will create the player
     * @param nickName: the nickname of the player
@@ -63,7 +55,7 @@ public class Game {
         boolean isEmpty = false;
         for(int j = 0; j<ALL_PLAYERS && !isEmpty; j++){
             if(players[j] == null){
-                players[j] = player;
+                players[j] = new Player(nickname, name, levels[0]);
                 isEmpty = true;
                 msj = "The player has been added";
             }
@@ -284,8 +276,8 @@ public class Game {
         return msj;
     }
     /**
-	* amountOfTreasure:  Search for the item with the lowest price
-	* @return the message displaying the lowest priced item of those in the array
+	* amountOfTreasures:  This method will show the amount of treasures in the gam
+	* @return the message displaying the number of treasures
 	*/
     public String amountOfTreasures(){
         String msj = "The treasure is Found: ";
@@ -310,15 +302,14 @@ public class Game {
         return msj;
     }
     /**
-	* consonantsEnemyName: This method will 
-	* @return the message displaying the lowest priced item of those in the array
+	* consonantsEnemyName: This method will show the amount of consonants according to the name of a enemy
+	* @return the message displaying will show the number of consonants
 	*/
     public String consonantsEnemyName(){
         String msj = ""; 
         int amount=0;
         char [] consonants={'q','w','r','t','y','p','s','d','f','g','h','j','k','l','z','x',
                                'c','v','b','n','m'};
-
         for(int i=0; i<ALL_ENEMIES;i++){
             if(enemies[i]!=null){
                 for(int j=0; j<enemies[i].getName().length();j++){
@@ -330,10 +321,14 @@ public class Game {
                  }
             }
 
-              msj = "this is the number of consonants ...  "  + amount; 
+              msj = "The number of consonants : "  + amount; 
         }
            return msj;
     }
+    /**
+	* topFivePlayer: This method will show the top Five players of all the game
+	* @return the message displaying will show a list of the top5
+	*/
     public String topFivePlayers(){
 		int top1= 0;
 		int top2 = 0;
@@ -405,4 +400,5 @@ public class Game {
 		}
 		return msj; 
 	}
+    
 }

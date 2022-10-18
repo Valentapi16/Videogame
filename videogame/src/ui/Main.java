@@ -34,7 +34,10 @@ public class Main{
 
 				main.getReader().close();
 	}
-	
+	/**
+	* getOptionShowMenu: This method will show the menu
+	* @return the message displaying will return an option when the user choose one
+	*/
 	public int getOptionShowMenu(){
 		int option = 0; 
 		System.out.println("<<<<< HI, WELCOME TO THE GAME >>>>>");
@@ -47,11 +50,11 @@ public class Main{
 				"6. Number of treasures and enemies in a level \n" +
 				"7. Number of treasures at all levels \n" +
 				"8. Number of one type of enemy at all levels \n" +
-				"9.Most repeated treasure \n" +
+				"9. Most repeated treasure \n" +
 				"10.Highest-scoring enemy and its location  \n" +
 				"11.Number of consonants in the enemy's name \n" +
 				"12.Top 5 players \n " +
-				"0.Exit. \n");
+				"0. Exit. \n");
 		option = validateIntegerOption(); 
 
 		return option; 
@@ -141,12 +144,12 @@ public class Main{
 				System.out.println(game.thereIsASpaceForPlayer());
 			
 			}else{
-				reader.nextLine();
+				reader.next();
 				System.out.print("Which is the nickname of the player: ");
-				String nickName = reader.nextLine();
+				String nickName = reader.next();
 				if(game.lookForPlayer(nickName) == null){
 						
-					System.out.println("Sorry but that nickname already exists");
+					System.out.println("Sorry but that nickname doesnt exists");
 
 				}else{
 					System.out.print("Enter the new player's score: ");
@@ -160,12 +163,12 @@ public class Main{
 			if(game.thereIsASpaceForPlayer().equals("There are no players in the game ")){
 				System.out.println(game.thereIsASpaceForPlayer());
 			}else{
-				reader.nextLine();
+				reader.next();
 				System.out.print("Which is the nickname of the player : ");
-				String nickName = reader.nextLine();
+				String nickName = reader.next();
 				if(game.lookForPlayer(nickName) == null){
 						
-					System.out.println("Sorry, but that nickname already exists");
+					System.out.println("Sorry, but that nickname doesnt exists");
 
 				}else{
 					System.out.println(game.upgradeLevelPlayer(nickName));
