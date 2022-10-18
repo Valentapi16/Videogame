@@ -61,8 +61,8 @@ public class Main{
 	}
 
 	public void executeOption(int option){
-		String nickname, name, enemyName, levelId, nameTreasure,linkImage, linkTreasure = "";
-		int morePointsPlayer, lessPointsPlayer,typeOfEnemy, scoreRequired, amountPerLevel, pointsToPlayer = 0;
+		String nickname, name, enemyName, nameTreasure, linkTreasure = "";
+		int morePointsPlayer, lessPointsPlayer,typeOfEnemy,pointsToPlayer, amountOfTreasures = 0;
 		switch(option){
 			case 1: 
 			if(game.thereIsASpaceForPlayer().equals("The player limit was filled")){
@@ -124,6 +124,8 @@ public class Main{
 				System.out.println(game.spaceForTreasures());
 			}else{
 				reader.next();
+				System.out.println("How many treasures you want to register: ");
+				amountOfTreasures = reader.nextInt();
 				System.out.println("Enter the name of the Treasure: ");
 				nameTreasure = reader.next();
 				System.out.print("Enter the URl of the image according to the treasure: ");
