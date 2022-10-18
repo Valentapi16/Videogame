@@ -302,6 +302,28 @@ public class Game {
         return msj;
     }
     /**
+	* enemyWhoGivesMaxScore:  This method will show the enemy with Most Points when it is defeated
+	* @return the message displaying the enemy name with most points
+	*/
+    public String enemyWhoGivesMaxScore(){
+        String msj= "";
+        int maximum = 0;
+        String maxName = "";
+
+        for(int j = 0; j< ALL_ENEMIES; j ++){
+            if(enemies[j] != null){
+                if(enemies[j].getMorePointsPlayer() > maximum){
+                    maximum= enemies[j].getMorePointsPlayer();
+                    maxName = enemies[j].getName();
+                }
+            }
+        }
+        msj =("The enemy with highest score is" + maxName + "and give" + maximum +"of score and its located in level:");
+        return msj;
+    }
+        
+    
+    /**
 	* consonantsEnemyName: This method will show the amount of consonants according to the name of a enemy
 	* @return the message displaying will show the number of consonants
 	*/

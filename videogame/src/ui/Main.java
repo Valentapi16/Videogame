@@ -92,19 +92,19 @@ public class Main{
 				System.out.println("Enter the name of the enemy ");
 				enemyName = reader.next();
 				if(game.lookForEnemy(enemyName) != null){
-					System.out.println("Error, este enemigos ya existe");
+					System.out.println("Sorry, this enemy doesnt exist ");
 				}else{
 	
 					System.out.print("Enter the number of points that will loose if the enemy wins: ");
 					lessPointsPlayer = reader.nextInt();
 					System.out.print("Enter the number of points that will be awarded if the enemy is defeated: ");
 					morePointsPlayer = reader.nextInt();
-					System.out.print("Dime de que tipo es este enemigo\n"+
-					"\n1. Ogro"+
-					"\n2. Abstracto"+
-					"\n3. Jefe"+
-					"\n4. Magico"+
-					"\nOpcion: ");
+					System.out.print("Which type it is the enemy: \n"+
+					"\n1. Ogre"+
+					"\n2. Abstract"+
+					"\n3. Boss"+
+					"\n4. Magical"+
+					"\n Option: ");
 					typeOfEnemy = reader.nextInt();
 					System.out.print("To which level will this enemy belong: ");
 					int level = reader.nextInt();
@@ -226,16 +226,18 @@ public class Main{
 
 			    break;
 			case 9: 
-			if(game.spaceForTreasures().equals("No hay tesoros")){
+
+			if(game.spaceForTreasures().equals("There are no treasures")){
 				System.out.println(game.spaceForTreasures());
+
 			}else{
 				System.out.println(game.amountOfTreasures());
-			}
-				
+
+			}		
 				break; 
 
 			case 10: 
-				
+			System.out.println(game.enemyWhoGivesMaxScore());
 				break; 
 			case 11:
 			System.out.println("Enter the name of the Enemy:");
