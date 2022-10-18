@@ -16,12 +16,12 @@ public class Game {
     private Enemy enemy;
     private Treasure treasure;
 
-    private int resolutionX;
-    private int resolutionY;
+    private int resX;
+    private int resY;
 
     public Game(){
-        resolutionX = 1280;
-        resolutionY = 720;
+        resX = 1280;
+        resY = 720;
         levels = new Level[ALL_LEVELS];
         players = new Player[ALL_PLAYERS];
         enemies = new Enemy[ALL_ENEMIES];
@@ -132,12 +132,12 @@ public class Game {
     * @param typeOfEnemy: String The type of Enemy
 	* @return String msj: the message displaying a messaje of confirmation after the enemy has been created
 	*/
-    public String createEnemy(String nameEnemy, int lessPointsPlayer,int morePointsPlayer, String typeOfEnemy, int level){
+    public String createEnemy(String enemyName, int lessPointsPlayer,int morePointsPlayer, int typeOfEnemy, int level){
         String msj = "The enemy has been created";
         boolean isEmpty = false;
         for(int i = 0; i < ALL_ENEMIES && !isEmpty; i++){
             if(enemies[i] == null){
-                enemies[i] =  new Enemy(nameEnemy, lessPointsPlayer, morePointsPlayer, typeOfEnemy, null, level, i);
+                enemies[i] =  new Enemy(enemyName,typeOfEnemy,lessPointsPlayer,morePointsPlayer, levels[level-1], resX, resY);
                 isEmpty = true;
             }
         }
@@ -169,7 +169,7 @@ public class Game {
         boolean isEmpty = false;
         for(int i = 0; i < ALL_TREASURES && !isEmpty; i++){
             if(treasures[i] == null){
-                treasures[i] =  new Treasure(nameTreasure, linkTreasure, pointsToPlayer, i, null, level, i);
+                treasures[i] =  new Treasure(nameTreasure, linkTreasure, pointsToPlayer, levels[level-1], resX, resY);
                 isEmpty = true;
             }
         }
@@ -264,6 +264,26 @@ public class Game {
         return msj;
     }
     /**
+	* enemiesType: String: Will show the amount of enemies according to an only type
+	* @return the message displaying the number of enemies found about one type at all levels
+	*/
+
+    public String enemiesType(int type){
+        String msj ="Enemies found: ";
+        int counter = 0;
+        for(int i = 0; i < ALL_ENEMIES; i++){
+            if(enemies[i] != null && enemies[i].getType() == type){
+                counter ++;
+            }
+        }
+        if(counter == 0){
+            msj="There are no enemies registered";
+        }else{
+            msj += counter;
+        }
+        return msj;
+    }
+    /**
 	* amountOfTreasure:  Search for the item with the lowest price
 	* @return the message displaying the lowest priced item of those in the array
 	*/
@@ -288,6 +308,101 @@ public class Game {
         msj += amountOfTreasures;
 
         return msj;
-
     }
+    /**
+	* consonantsEnemyName: This method will 
+	* @return the message displaying the lowest priced item of those in the array
+	*/
+    public String consonantsEnemyName(){
+        String msj = ""; 
+        int amount=0;
+        char [] consonants={'q','w','r','t','y','p','s','d','f','g','h','j','k','l','z','x',
+                               'c','v','b','n','m'};
+
+        for(int i=0; i<ALL_ENEMIES;i++){
+            if(enemies[i]!=null){
+                for(int j=0; j<enemies[i].getName().length();j++){
+                   for(int s=0;s<consonants.length;s++){
+                      if(enemies[i].getName().charAt(j)==consonants[s]){
+                       amount++; 
+                       }
+                    }
+                 }
+            }
+
+              msj = "this is the number of consonants ...  "  + amount; 
+        }
+           return msj;
+    }
+    public String topFivePlayers(){
+		int top1= 0;
+		int top2 = 0;
+		int top3 = 0;
+		int top4 = 0;
+		int top5 = 0;
+		String name1 = " ";
+		String name2 = " ";
+		String name3 = " ";
+		String name4 = " ";
+		String name5 = " ";
+		String msj = ""; 
+
+		for(int i = 0; i<ALL_PLAYERS; i++){
+
+			if(players[i] != null && players[i].getScore() > top1){
+				
+				top5 = top4;
+				top4= top3;
+				top3= top2;
+				top2 = top1;
+				top1 = players[i].getScore();
+				name5 = name4;
+				name4 = name3;
+				name3 = name2;
+				name2= name1; 
+				name1 = players[i].getNicknamePlayer(); 
+				
+			} else if(players[i] != null && players[i].getScore() > top2){
+				
+				top5 = top4;
+				top4= top3;
+				top3= top2;
+				top2 = players[i].getScore(); 
+				name5 = name4;
+				name4 = name3;
+				name3 = name2;
+				name2= players[i].getNicknamePlayer();
+
+			}else if( players[i] != null && players[i].getScore() > top3){
+
+				top5 = top4;
+				top4= top3;
+				top3= players[i].getScore(); 
+				name5 = name4;
+				name4 = name3;
+				name3 = players[i].getNicknamePlayer();
+
+			} else if(players[i] != null && players[i].getScore() > top4){
+
+				top5 = top4;
+				top4= players[i].getScore(); 
+				name5 = name4;
+				name4 = players[i].getNicknamePlayer();
+
+			}else if(players[i] != null && players[i].getScore() > top5){
+
+				top5 = players[i].getScore();
+				name5 = players[i].getNicknamePlayer(); 
+		
+			}
+
+			msj = "top 5 player... \n" +
+					"1."+ name1 + ": " + top1 + "\n"+
+					"2."+ name2 + ": " + top2 + "\n"+
+					"3."+ name3 + ": " + top3 + "\n"+
+					"4."+ name4 + ": " + top4 + "\n"+
+					"5."+ name5 + ": " + top5 + "\n"; 
+		}
+		return msj; 
+	}
 }

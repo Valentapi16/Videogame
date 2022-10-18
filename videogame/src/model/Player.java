@@ -14,11 +14,12 @@ public class Player {
     private Player player;
 
 
-    public Player(String nicknamePlayer, String name,int ascoreInitial, int aamountOfLifes, String ascoreToNextLevel){
+    public Player(String nicknamePlayer, String name, Level currentlevel,String ascoreToNextLevel){
         this.nickNamePlayer = nicknamePlayer;
         this.name = name;
-        scoreInitial = ascoreInitial;
-        amountOfLifes = aamountOfLifes;
+        this.currentLevel = currentlevel;
+        scoreInitial = 10;
+        amountOfLifes = 5;
         scoreToNextLevel = ascoreToNextLevel;
 
     }

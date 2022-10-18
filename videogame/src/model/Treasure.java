@@ -11,7 +11,7 @@ public class Treasure {
     private Level level;
 
 
-    public Treasure(String nameTreasure, String linkTreasure, int pointsToPlayer, double apositionInPixels,Level level, int resX, int resY){
+    public Treasure(String nameTreasure, String linkTreasure, int pointsToPlayer,Level level, int resX, int resY){
         this.nameTreasure = nameTreasure;
         this.linkTreasure = linkTreasure;
         this.pointsPlayer = pointsToPlayer;

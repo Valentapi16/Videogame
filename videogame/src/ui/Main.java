@@ -58,8 +58,8 @@ public class Main{
 	}
 
 	public void executeOption(int option){
-		String nickname, name, enemyName, levelId, typeOfEnemy, nameTreasure,linkImage, linkTreasure = "";
-		int morePointsPlayer, lessPointsPlayer, scoreRequired, amountPerLevel, pointsToPlayer = 0;
+		String nickname, name, enemyName, levelId, nameTreasure,linkImage, linkTreasure = "";
+		int morePointsPlayer, lessPointsPlayer,typeOfEnemy, scoreRequired, amountPerLevel, pointsToPlayer = 0;
 		switch(option){
 			case 1: 
 			if(game.thereIsASpaceForPlayer().equals("The player limit was filled")){
@@ -92,12 +92,17 @@ public class Main{
 					System.out.println("Error, este enemigos ya existe");
 				}else{
 	
-					System.out.print("Enter the number of points that will be awarded if the enemy wins: ");
+					System.out.print("Enter the number of points that will loose if the enemy wins: ");
 					lessPointsPlayer = reader.nextInt();
 					System.out.print("Enter the number of points that will be awarded if the enemy is defeated: ");
 					morePointsPlayer = reader.nextInt();
-					System.out.print("Enter the type of the enemy:Ogre,Abstract,Boss,Magic");
-					typeOfEnemy = reader.next();
+					System.out.print("Dime de que tipo es este enemigo\n"+
+					"\n1. Ogro"+
+					"\n2. Abstracto"+
+					"\n3. Jefe"+
+					"\n4. Magico"+
+					"\nOpcion: ");
+					typeOfEnemy = reader.nextInt();
 					System.out.print("To which level will this enemy belong: ");
 					int level = reader.nextInt();
 					if(level > 10 || level < 1){
@@ -111,6 +116,7 @@ public class Main{
 				break; 
 
 			case 3:
+
 			if(game.spaceForTreasures().equals("The treasure limit was filled")){
 				System.out.println(game.spaceForTreasures());
 			}else{
@@ -118,37 +124,108 @@ public class Main{
 				System.out.println("Enter the name of the Treasure: ");
 				nameTreasure = reader.next();
 				System.out.print("Enter the URl of the image according to the treasure: ");
-				linkTreasure = reader.nextLine();
+				linkTreasure = reader.next();
 				System.out.print("Enter the amount of points that will give to the player if it is found: ");
 				pointsToPlayer = reader.nextInt();
 				System.out.println("To which level will this treasure belong");
 				int level = reader.nextInt();
 				if(level > 10 || level < 1){
-					System.out.println("Nivel no valido");
+					System.out.println("No valid level");
 				}
 				System.out.print(game.createTreasure(nameTreasure, linkTreasure, pointsToPlayer, level));
 			}
-				
 				break; 
 
 			case 4: 
-				
+			if(game.thereIsASpaceForPlayer().equals("There are no players in the game ")){
+				System.out.println(game.thereIsASpaceForPlayer());
+			
+			}else{
+				reader.nextLine();
+				System.out.print("Which is the nickname of the player: ");
+				String nickName = reader.nextLine();
+				if(game.lookForPlayer(nickName) == null){
+						
+					System.out.println("Sorry but that nickname already exists");
+
+				}else{
+					System.out.print("Enter the new player's score: ");
+
+					System.out.println(game.modifiedScorePlayer(reader.nextInt(),nickName));
+				}
+			}
 				break; 
 
 			case 5: 
+			if(game.thereIsASpaceForPlayer().equals("There are no players in the game ")){
+				System.out.println(game.thereIsASpaceForPlayer());
+			}else{
+				reader.nextLine();
+				System.out.print("Which is the nickname of the player : ");
+				String nickName = reader.nextLine();
+				if(game.lookForPlayer(nickName) == null){
+						
+					System.out.println("Sorry, but that nickname already exists");
+
+				}else{
+					System.out.println(game.upgradeLevelPlayer(nickName));
+				}
+			}
 				
 				break; 
 			case 6:
-			
+			if(game.spaceForTreasures().equals("There are no treasures")){
+				System.out.println(game.spaceForTreasures());
+			}else{
+				System.out.println("Type the number of the level you wish to consult");
+				int level = reader.nextInt();
+				System.out.println(game.theTreasures(level));
+			}
+			if(game.spaceForEnemies().equals("There are no enemies ")){
+				System.out.println(game.spaceForEnemies());
+			}else{
+				System.out.println("Type the number of the level you wish to consult");
+				int level = reader.nextInt();
+				System.out.println(game.theEnemies(level));
+			}
 			    break;
+			case 7:
 
-			case 7:	
+			if(game.spaceForTreasures().equals("There are no treasures")){
+				System.out.println(game.spaceForTreasures());
+			}else{
+				System.out.println("Type the name of the treasure you wish to consult");
+				reader.nextLine();
+				System.out.println(game.allTreasuresAlongTheGame(reader.next()));
+			}	
 
 			    break;
 			case 8:	
+			if(game.spaceForEnemies().equals("There are no enemies ")){
+				System.out.println(game.spaceForEnemies());
+			}else{
+
+				System.out.print("\nWich enemy do you want to know"+
+				"\n1.Ogre"+
+				"\n2.Abstract"+
+				"\n3.Boss"+
+				"\n4.Magic"+
+				"\nOpcion: ");
+				int type = reader.nextInt();
+				if(type > 4 || type < 1){
+					System.out.println("Invalid Option");
+				}else{
+					System.out.println(game.enemiesType(type));
+				}
+			}
 
 			    break;
 			case 9: 
+			if(game.spaceForTreasures().equals("No hay tesoros")){
+				System.out.println(game.spaceForTreasures());
+			}else{
+				System.out.println(game.amountOfTreasures());
+			}
 				
 				break; 
 
@@ -156,14 +233,16 @@ public class Main{
 				
 				break; 
 			case 11:
+			System.out.println("Enter the name of the Enemy:");
+			enemyName = reader.next();
+
+			System.out.println(game.consonantsEnemyName());
 			
 			    break;
 			case 12: 
+			System.out.println(game.topFivePlayers());
 				
 				break; 
-			case 13:
-			
-			    break;
 
 			case 0: 
 				System.out.println("Exit program.");
